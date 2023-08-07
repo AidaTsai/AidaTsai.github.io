@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="main.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+</head>
+<style>
+    body {
+        color: white
+    }
+
+    .box {
+        position: relative;
+        background-color: #17154b;
+
+    }
+
+    img {
+        width: 100%;
+        /*使用max-width:100% 可避免圖片解析度不好，隨父元素被放大時會糊掉*/
+        height: auto;
+    }
+
+    ul li {
+        display: inline-block;
+        /* 或 float: left */
+    }
+
+    /* .map {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+    }
+
+    .map iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    } */
+</style>
+
+<body class="box" background color="#17154b">
+    <img src="image.svg" class="map">
+    <!-- <object data="image.svg" type="image/svg+xml"> -->
+
+    <!-- <div class="map">
+        <iframe frameborder="0" src="image.svg" allowFullScreen="true">
+        </iframe>
+    </div> -->
+
+
+    <h2>世界之大，我們去打工度假！</h2>
+    <form id="travel-form">
+        <fieldset>
+            <legend>基本資料</legend>
+            <label for="name">姓名 : </label>
+            <input type="text" id="name" name="name">
+            <br>
+            <label for="birthday">生日 : </label>
+            <input type="date" id="birthday" name="birthday">
+        </fieldset>
+        預計何時出發:
+        <input name="departure" type="radio" id="firstHalf">
+        <label for="firstHalf">上半年</label>
+        <input name="departure" type="radio" id="secondHalf">
+        <label for="secondHalf">下半年</label>
+
+
+        <br>
+        <label for="countries">有生以來超想去:</label>
+        <br>
+
+        <button type="button" onclick="allChecked()">全選</button>
+        <button type="submit" id="button1">送出</button>
+
+        <!-- <div>
+            <input name="destination" type="checkbox" id="NorthAmerica">
+            <label for="NorthAmerica">北美洲</label>
+            <input name="destination" type="checkbox" id="Europe">
+            <label for="Europe">歐洲</label>
+            <input name="destination" type="checkbox" id="NorthEastAsia">
+            <label for="NorthEastAsia">東北亞</label>
+            <input name="destination" type="checkbox" id="Oceania">
+            <label for="Oceania">大洋洲</label>
+        </div> -->
+        <div>
+            <input class="checkbox2check" type="checkbox" name="checkbox_v1" value="version1"
+                onclick="allSelect('checkbox_v1', 'checkbox1')"><a data-toggle="collapse" data-target="#demo1">北美洲<b
+                    class="caret"></b></a>
+            <ul id="demo1" class="collapse in">
+                <li> <input type="checkbox" name="checkbox1" onclick="singleSelect2parent('checkbox_v1', 'checkbox1')"
+                        value="加拿大">加拿大</li>
+                <li> <input type="checkbox" name="checkbox1" onclick="singleSelect2parent('checkbox_v1', 'checkbox1')"
+                        value="美國">美國</li>
+            </ul>
+        </div>
+        <div>
+            <input class="checkbox2check" type="checkbox" name="checkbox_v2" value="version2"
+                onclick="allSelect('checkbox_v2', 'checkbox2')"><a data-toggle="collapse" data-target="#demo2">歐洲<b
+                    class="caret"></b></a>
+            <ul id="demo2" class="collapse in">
+                <li> <input type="checkbox" name="checkbox2" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')"
+                        value="愛爾蘭">愛爾蘭</li>
+                <li> <input type="checkbox" name="checkbox2" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')"
+                        value="英國">英國</li>
+                <li> <input type="checkbox" name="checkbox2" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')"
+                        value="法國">法國</li>
+                <li> <input type="checkbox" name="checkbox2" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')"
+                        value="比利時">比利時</li>
+                <li> <input type="checkbox" name="checkbox2" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')"
+                        value="荷蘭">荷蘭</li>
+                <li> <input type="checkbox" name="checkbox2" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')"
+                        value="盧森堡">盧森堡</li>
+                <br>
+                <li> <input type="checkbox" name="checkbox2," onclick="singleSelect2parent('checkbox_v2', 'checkbox2')"
+                        value="德國">德國</li>
+                <li> <input type="checkbox" name="checkbox2" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')"
+                        value="奧地利">奧地利</li>
+                <li> <input type="checkbox" name="checkbox2" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')"
+                        value="捷克">捷克</li>
+                <li> <input type="checkbox" name="checkbox2" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')"
+                        value="波蘭">波蘭</li>
+                <li> <input type="checkbox" name="checkbox2" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')"
+                        value="斯洛伐克">斯洛伐克</li>
+                <li> <input type="checkbox" name="checkbox2" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')"
+                        value="匈牙利">匈牙利</li>
+            </ul>
+        </div>
+        <div>
+            <input class="checkbox2check" type="checkbox" name="checkbox_v3" value="version3"
+                onclick="allSelect('checkbox_v3', 'checkbox3')"><a data-toggle="collapse" data-target="#demo3">東北亞<b
+                    class="caret"></b></a>
+            <ul id="demo3" class="collapse in">
+                <li> <input type="checkbox" name="checkbox3" onclick="singleSelect2parent('checkbox_v3', 'checkbox3')"
+                        value="日本">日本</li>
+                <li> <input type="checkbox" name="checkbox3" onclick="singleSelect2parent('checkbox_v3', 'checkbox3')"
+                        value="韓國">韓國</li>
+            </ul>
+        </div>
+        <div>
+            <input class="checkbox2check" type="checkbox" name="checkbox_v4" value="version4"
+                onclick="allSelect('checkbox_v4', 'checkbox4')"><a data-toggle="collapse" data-target="#demo4">大洋洲<b
+                    class="caret"></b></a>
+            <ul id="demo3" class="collapse in">
+                <li> <input type="checkbox" name="checkbox4" onclick="singleSelect2parent('checkbox_v4', 'checkbox4')"
+                        value="澳洲">澳洲</li>
+                <li> <input type="checkbox" name="checkbox4" onclick="singleSelect2parent('checkbox_v4', 'checkbox4')"
+                        value="紐西蘭">紐西蘭</li>
+            </ul>
+        </div>
+
+    </form>
+    <div id="travel-info"></div>
+    <div class="form-container"></div>
+    <script>
+        // $(function () {
+        //     $('#button1').click(function () {
+        //         $.ajax({
+        //             url: 'nationsInformation.json',
+        //             success: function (text) {
+        //                 // let jasonObj = $.parseJSON(text) 此寫法是jQR，樓下是JS
+        //                 let jsonObj = JSON.parse(text)
+        //                 /*jsonObj.records.forEach(function (pollution) {
+        //                     $('body').append(`<p>${pollution.county},${pollution.sitename}:${pollution.aqi},${pollution.status}</p>`)
+        //                 })*/
+        //                 let s = ''
+        //                 jsonObj.records.forEach(function (record) {
+        //                     s += `
+        //                     ${record.Country}
+        //                     ${record.年齡限制}:
+        //                     ${record.每年名額}
+        //                     (${record.簽證期限})
+        //                     ${record.申請時程}
+        //                     ${record.申請方式}
+        //                     ${record.申請費用}
+        //                     ${record.財力證明}
+        //                     ${record.備註}
+        //                     <br>
+        //                     `
+        //                 })
+        //                 $('div').html(s)
+
+        //             }
+        //         })
+
+        //     })
+        // })
+        /*$(function () {
+            $('#button1').click(function () {
+                $.ajax({
+                    url: 'nationsInformation.json',
+                    success: function (data) {
+                        try {
+                            const jsonObj = JSON.parse(data);
+                            let html = '';
+                            jsonObj.records.forEach(function (record) {
+                                html += `
+              <div>
+                ${record.Country}
+                ${record.年齡限制}: ${record.每年名額} (${record.簽證期限})
+                ${record.申請時程} ${record.申請方式} ${record.申請費用}
+                ${record.財力證明} ${record.備註}
+              </div>
+            `;
+                            });
+                            $('body').html(html);
+                        } catch (err) {
+                            $('body').html('解析JSON数据出错\uFF1A' + err.message);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $('body').html('ajax请求出错\uFF1A' + textStatus + ', ' + errorThrown);
+                    }
+                });
+            });
+        });*/
+
+
+        //當第一層選項選定，則該選項下的第二層全部被選定
+        function allSelect(check_v, checkname) {
+            var v_item = document.getElementsByName(check_v);
+            var items = document.getElementsByName(checkname);
+            for (var i = 0; i < items.length; ++i) {
+                if (v_item[0].checked) {
+                    items[i].checked = true;
+                }
+                else {
+                    items[i].checked = false;
+                }
+            }
+        }
+        //當第二層選項全部被選定，則第一層被選定；若第二層選項至少有一個沒被選定，則第一層不被選定
+        function singleSelect2parent(check_v, checkname) {
+            var v_item = document.getElementsByName(check_v);
+            var items = document.getElementsByName(checkname);
+            var childStatus = true;
+            for (var i = 0; i < items.length; ++i) {
+                childStatus = (childStatus && items[i].checked);
+            }
+            if (childStatus) {
+                v_item[0].checked = true;
+            }
+            else {
+                v_item[0].checked = false;
+            }
+        }
+        //全選按鈕，點選全選，則所有選項被選中
+        function allChecked() {
+            var inputItems = document.getElementsByClassName("checkbox2check");
+            for (var i = 0; i < inputItems.length; i++) {
+                var checkItems = document.getElementsByName("checkbox" + (i + 1));
+                for (var j = 0; j < checkItems.length; j++) {
+                    checkItems[j].checked = true;
+                }
+                inputItems[i].checked = true;
+            }
+        }
+        $(function () {
+            $('#travel-form').submit(function (event) {
+                // 防止表单默认提交行为
+                event.preventDefault();
+                // 先隱藏原本的表單區塊
+                $('form').hide();
+                var birthday = new Date($('#birthday').val());
+
+                // 获取当前日期
+                var currentDate = new Date();
+
+                // 比较生日和当前日期
+                if (birthday > currentDate) {
+                    // 显示错误消息
+                    alert('生日輸入錯誤，請重新輸入！');
+                    return false;
+                }
+                // 获取表单数据
+                const formData = {
+                    name: $('#name').val(),
+                    birthday: $('#birthday').val(),
+                    countries: $('input[name^="checkbox"]:checked').map(function () {
+                        return this.value;
+                    }).get()
+
+                }; console.log(formData)
+
+                // 显示表单数据
+                let html = '';
+                html += `<p>姓名: ${formData.name ? formData.name : '未填寫'}</p>`;
+                if (!formData.birthday) {
+                    html += '<p>生日: 未填寫</p>';
+                } else {
+                    const age = getAge(formData);
+                    const { years, months } = age;
+                    html += `<p>目前年齡: ${years}歲${months}個月</p>`;
+                }
+                //          
+
+                if (formData.countries.length > 0) {
+                    html += '<table><thead><tr><th>國家</th><th>年齡限制</th><th>每年名額</th><th>簽證期限</th><th>申請時程</th><th>申請方式</th><th>申請費用</th><th>財力證明</th><th>備註</th></tr></thead><tbody>';
+                    $.getJSON('./nationsInformation.json', function (data) {
+                        formData.countries.forEach(function (country) {
+                            const record = data.records.find(function (r) {
+                                return r.Country === country;
+                            });
+                            if (record) {
+                                html += `<tr><td>${record.Country}</td><td>${record.年齡限制}</td><td>${record.每年名額}</td><td>${record.簽證期限}</td><td>${record.申請時程}</td><td>${record.申請方式}</td><td>${record.申請費用}</td><td>${record.財力證明}</td><td>${record.備註}</td></tr>`;
+                            }
+                        });
+                        html += '</tbody></table>';
+                    }).done(function () {
+                        $('#travel-info').html(html);
+                    });
+                }
+                else {
+                    $('#travel-info').html(html);
+                }
+            });
+
+            //获取指定生日的年龄（月数）
+            function getAge(formData) {
+                const birthday = new Date(formData.birthday);
+                const now = new Date();
+                let ageInYears = now.getFullYear() - birthday.getFullYear();
+                let ageInMonths = now.getMonth() - birthday.getMonth();
+                if (now.getDate() < birthday.getDate()) {
+                    ageInMonths -= 1;
+                }
+                if (ageInMonths < 0) {
+                    ageInYears -= 1;
+                    ageInMonths += 12;
+                }
+                return { years: ageInYears, months: ageInMonths };
+
+            }
+
+        });
+        // 建立一個 button 元素
+        const restartButton = document.createElement('button');
+        // 設定 button 的文字
+        restartButton.textContent = '重新出發';
+        // 設定 button 的 class 屬性
+        restartButton.setAttribute('class', 'restart-button');
+        // 設定 button 的 click 事件
+        restartButton.addEventListener('click', function () {
+            // 重新載入頁面
+            window.location.reload();
+        });
+
+        
+        window.onload = function() {
+    window.scrollTo(0, 0);
+}
+$(window).scroll(function() {
+  console.log('scrolling');
+  // other code for scrolling event
+});
+        // // 找到表單容器元素
+        const formContainer = document.querySelector('.form-container');
+        // // 在表單容器元素的前面插入 button 元素
+        formContainer.parentNode.insertBefore(restartButton, formContainer);
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //當第一層選項選定，則該選項下的第二層全部被選定
+          function allSelect(check_v, checkname) {
+            var v_item = document.getElementsByName(check_v);
+            var items = document.getElementsByName(checkname);
+            for (var i = 0; i < items.length; ++i) {
+              if (v_item[0].checked) {
+                items[i].checked = true;
+              }
+              else {
+                items[i].checked = false;
+              }
+            }
+          }
+        //當第二層選項全部被選定，則第一層被選定；若第二層選項至少有一個沒被選定，則第一層不被選定
+          function singleSelect2parent(check_v, checkname) {
+            var v_item = document.getElementsByName(check_v);
+            var items = document.getElementsByName(checkname);
+            var childStatus = true;
+            for (var i = 0; i < items.length; ++i) {
+              childStatus = (childStatus && items[i].checked);
+            }
+            if (childStatus) {
+              v_item[0].checked = true;
+            }
+            else {
+              v_item[0].checked = false;
+            }
+          }
+        //全選按鈕，點選全選，則所有選項被選中
+          function allChecked() {
+            var inputItems = document.getElementsByClassName("checkbox2check");
+            for (var i = 0; i < inputItems.length; i++) {
+              var checkItems = document.getElementsByName("checkbox" + (i+1));
+              for (var j = 0; j < checkItems.length; j++) {
+                checkItems[j].checked = true;
+              }
+              inputItems[i].checked = true;
+            }
+          }
+        </script>
+        <style>
+          ul li{
+            list-style:none;
+          }
+        </style>
+        <div>
+          <input class="checkbox2check" type="checkbox" checked name="checkbox_v1" value="version1" onclick="allSelect('checkbox_v1', 'checkbox1')"><a data-toggle="collapse" data-target="#demo1">版本一<b class="caret"></b></a>
+          <ul id="demo1" class="collapse in">
+            <li> <input type="checkbox" checked name="checkbox1" value="layer1" onclick="singleSelect2parent('checkbox_v1', 'checkbox1')">v1.0.1</li>
+            <li> <input type="checkbox" checked name="checkbox1" value="layer2" onclick="singleSelect2parent('checkbox_v1', 'checkbox1')">V1.1.1</li>
+            <li> <input type="checkbox" checked name="checkbox1" value="layer3" onclick="singleSelect2parent('checkbox_v1', 'checkbox1')">V1.2.1</li>
+            <li> <input type="checkbox" checked name="checkbox1" value="layer4" onclick="singleSelect2parent('checkbox_v1', 'checkbox1')">V1.3.1</li>
+          </ul>
+        </div>
+        <div>
+          <input class="checkbox2check" type="checkbox" checked name="checkbox_v2" value="version2" onclick="allSelect('checkbox_v2', 'checkbox2')"><a data-toggle="collapse" data-target="#demo2">版本二<b class="caret"></b></a>
+          <ul id="demo2" class="collapse in">
+            <li> <input type="checkbox" checked name="checkbox2" value="layer5" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')">V2.0.1</li>
+            <li> <input type="checkbox" checked name="checkbox2" value="layer6" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')">V2.1.1</li>
+            <li> <input type="checkbox" checked name="checkbox2" value="layer7" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')">V2.2.1</li>
+          </ul>
+        </div>
+        <div>
+          <input class="checkbox2check" type="checkbox" checked name="checkbox_v3" value="version3" onclick="allSelect('checkbox_v3', 'checkbox3')"><a data-toggle="collapse" data-target="#demo3">版本三<b class="caret"></b></a>
+          <ul id="demo3" class="collapse in">
+            <li> <input type="checkbox" checked name="checkbox3" value="layer8" onclick="singleSelect2parent('checkbox_v3', 'checkbox3')">V3.0.1</li>
+            <li> <input type="checkbox" checked name="checkbox3" value="layer9" onclick="singleSelect2parent('checkbox_v3', 'checkbox3')">V3.1.1</li>
+            <li> <input type="checkbox" checked name="checkbox3" value="layer10" onclick="singleSelect2parent('checkbox_v3', 'checkbox3')">V3.2.1</li>
+          </ul>
+        </div>
+        <button type="button" onclick="allChecked()">全選</button>
+</body>
+</html>
+
+
+$.ajax({
+  //     url: 'nationsInformation.json',
+  //     dataType: 'json',
+  //     success: function(data) {
+  //         // 成功載入資料後的程式碼
+  //         formData.countries.forEach(function(country) {
+  //             const record = data.records.find(function(r) {
+  //                 return r.Country === country;
+  //             });
+  //             if (record) {
+  //                 html += `<tr><td>${record.Country}</td><td>${record.年齡限制}</td><td>${record.每年名額}</td><td>${record.簽證期限}</td><td>${record.申請時程}</td><td>${record.申請方式}</td><td>${record.申請費用}</td><td>${record.財力證明}</td><td>${record.備註}</td></tr>`;
+  //             }
+  //         });
+  //         html += '</tbody></table>';
+  //         $('#travel-info').html(html);
+  //     },
+  //     error: function(jqXHR, textStatus, errorThrown) {
+  //         // 載入資料失敗時的程式碼
+  //         console.log('載入資料失敗');
+  //         console.log(jqXHR);
+  //         console.log(textStatus);
+  //         console.log(errorThrown);
+  //         $('#travel-info').html('載入資料失敗');
+  //     }
+  // });
